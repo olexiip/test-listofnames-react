@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+https://olexiip.github.io/test-listofnames-react/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
