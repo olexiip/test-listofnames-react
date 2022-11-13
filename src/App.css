@@ -1,38 +1,66 @@
 .App {
+  font-size: 18px;
+  display: block;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.list-item {
+  background-color: #fdfdfd;
+  z-index: 4;
+}
+.item-rank, .item-name, .terminator {
+  z-index: 0;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.list-item, .list-header, .create-item-form {
+  display: grid;
+  width: min-content;
+  grid-template-columns: repeat(1, 60px 140px 0px 50px  50px );
+  margin-bottom: 10px;
+}
+.create-item-form {
+  width:min-content;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(1, 125px 80px 100px);
+}
+.list-header {
+  padding: 10px;
+  width:min-content;
+  font-weight: 700;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.list {
+  width:min-content;
+  display: grid;
+  background-color: #f0f0f0;
+  border: 1px solid rgb(173, 173, 173);
+  border-radius: 16px;
+  padding: 10px 10px 1px 10px;
 }
 
-.App-link {
-  color: #61dafb;
+input, button, .list-item {
+  border: 1px solid rgb(173, 173, 173);
+  border-radius: 8px;
+  padding: 10px;
+
+}
+.terminator {
+  width: 0px;
+  border: 1px solid rgb(173, 173, 173);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.editform-wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+
+}
+.edit-name, .edit-rank{
+  margin: 10px;
+}
+.editform-titles {
+  font-weight: 700;
+  margin-left: 20px;
 }
