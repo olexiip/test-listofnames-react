@@ -62,7 +62,7 @@ const StorageService = () => {
 		try { 
 			await getAllData().then(delItem);
 		} catch (e) {
-			//console.log(e);
+			console.log(e);
 			return {"err":"sww"};
 		}
 		return {"res":"ok"};
@@ -81,15 +81,10 @@ const StorageService = () => {
 		return {"res":"ok"};
 	}
 
-	const SetItemrank = (rank, newRank) => {
-		console.log(`Service>SetItemrank  ${rank} to ${newRank}`);
-		return {"res":"ok"};
-	}
 
 	const AddItem = async (item, rank = -1) => {
-
 		const insertItem = async (data)  => {
-			if ((rank <0) || ( rank > data.names.length) || typeof(rank)==="string") {
+			if ((rank <0) || ( +rank > data.names.length)) {
 				rank = data.names.length;
 			} 
 			const newID = uuidv4();
@@ -185,7 +180,7 @@ const StorageService = () => {
 
 
 
-	return {getData, swapItems, deleteItem, SetItemrank, AddItem, editItem};
+	return {getData, swapItems, deleteItem, AddItem, editItem};
 }
 
 export default StorageService;
