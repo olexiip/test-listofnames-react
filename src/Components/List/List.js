@@ -14,10 +14,6 @@ const List = () => {
 
 	const pagLimit = 10;
 
-
-  
-
-
 	const [updatedList, updateListState] = useState({names:[], page:1, total:undefined, limit: pagLimit});
 	const [currentModal, updateModal] = useState({});
 	const [dnd1, setDnd1] = useState({});
@@ -26,7 +22,7 @@ const List = () => {
 		const update = async (getTodoResp) => {
 		  updateListState(getTodoResp);
 		}
-		await api.getData({ limit: pagLimit, page: page}).then(update);
+		await api.getData([{ limit: pagLimit, page: page}]).then(update);
 	  }
 
 	useEffect(()=>{
@@ -35,7 +31,7 @@ const List = () => {
 
 	const onDrop = async (e, id) => {
 		e.target.style="";
-		await api.swapItems(dnd1, id);
+		await api.swapItems([dnd1, id]);
 		getData(updatedList.page);
 	}
 	const onDragStart = (e, id) => {
@@ -56,7 +52,7 @@ const List = () => {
 	}
 
 	const addItemHandler = async (newItem) => {
-		await api.addItem(newItem.name, newItem.rank);
+		await api.addItem([newItem.name, newItem.rank]);
 		getData(updatedList.page);
 	}
 
@@ -72,12 +68,12 @@ const List = () => {
 	  };
 
 	const  deleteHandler = async (id) => {
-		await api.deleteItem(id);
+		await api.deleteItem([id]);
 		getData(updatedList.page);
 	}
 
 	const handleSave = async (editableID, editedTitle, EditedRank) => {
-		await api.editItem(editableID,editedTitle,EditedRank);
+		await api.editItem([editableID,editedTitle,EditedRank]);
 		getData(1);
 		//updateModal({}); 
 	}

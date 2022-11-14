@@ -20,9 +20,9 @@ const StorageService = () => {
 	const getData = async (pag) => {
 		const page = pag?.page;
 		const limit = pag?.limit;
-		const condition0 = (typeof(page)===typeof(limit) && typeof(limit) ==="number");
+		const validParams = (typeof(page)===typeof(limit) && typeof(limit) ==="number");
 		
-		if (condition0) {
+		if (validParams) {
 			let data = "";
 			const pagSlice = (data) => {
 				const max = page*limit;
@@ -33,7 +33,7 @@ const StorageService = () => {
 					return finalRes;
 				}
 			}
-			data = await getAllData().then(pagSlice);
+			data = getAllData().then(pagSlice);
 			if (data) {
 				return data;
 			}
@@ -43,7 +43,7 @@ const StorageService = () => {
 	}
 
 	const getAllData = async () => {
-			const data= await JSON.parse(localStorage.getItem("nameList"));
+			const data = await JSON.parse(localStorage.getItem("nameList"));
 			if(data?.names) {
 				return data;
 			}
@@ -52,6 +52,8 @@ const StorageService = () => {
 	}
 
 	const deleteItem = async (id) => {
+		console.log("deleteItem")
+		console.log(id)
 		const delItem = (data) => {
 			const target =  findItem(data, id);
 			if(target>-1){
@@ -60,7 +62,7 @@ const StorageService = () => {
 			}
 		}
 		try { 
-			await getAllData().then(delItem);
+			getAllData().then(delItem);
 		} catch (e) {
 			console.log(e);
 			return {"err":"sww"};
@@ -93,7 +95,7 @@ const StorageService = () => {
 		}
 
 		try {
-			await getAllData().then(insertItem);
+			getAllData().then(insertItem);
 		} catch (e) {
 			console.log(e);
 			return  {"err":"sww"};
@@ -125,7 +127,7 @@ const StorageService = () => {
 			saveData(data);
 		}
 		try {
-			await getAllData().then(swap);
+			getAllData().then(swap);
 		} catch (e) {
 			console.log(e);
 			return {"err":"sww"};
@@ -134,9 +136,10 @@ const StorageService = () => {
 	}
 
 	const editItem = async (id, text, rank) => {
+
 		let letsChangeName = false;
 		let letschangeRank = false;
-		letsChangeName = typeof(text)==="string";
+		letsChangeName = text!=="";
 		letschangeRank = ( rank>=0 );
 		if ( letsChangeName || letschangeRank) {
 			const edit = (data) => {
@@ -159,7 +162,7 @@ const StorageService = () => {
 				return 1;
 			}
 			try {
-				await getAllData().then(edit);
+				getAllData().then(edit);
 				return  {"res":"ok"}
 			} catch (e) { 
 				console.log(e);

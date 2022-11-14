@@ -18,7 +18,7 @@ const EditItem = (props) => {
 		e.preventDefault();
 		changesName = !(newItemTitle === props.text);
 		changesRank = !(newItemRank === props.rank);
-		const newName = changesName?newItemTitle:-1;
+		const newName = changesName?newItemTitle:"";
 		const newRank = changesRank?newItemRank:-1;
 		if (changesName||changesRank) {
 			props.handleSave(props.id, newName, newRank);
