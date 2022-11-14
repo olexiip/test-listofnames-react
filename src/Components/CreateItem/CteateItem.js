@@ -20,7 +20,7 @@ const CreateItem = (props) => {
 				type="text" 
 				value={newitem.name} 
 				className="new-item-name" 
-				placeholder="new item name" 
+				placeholder="new name" 
 				onChange={(e)=>onTypeNameHandler(e)}
 			></input>
 			<input 
@@ -35,7 +35,7 @@ const CreateItem = (props) => {
 				className="new-item-add" 
 				onClick={(e)=>onSubmitHandler(e)} 
 				disabled={!(newitem?.name)}
-			>add item</button>
+			>add</button>
 		</div>
 		)
 }
