@@ -1,6 +1,12 @@
 
+<<<<<<< Updated upstream
 
 Demonstration here: https://olexiip.github.io/test-listofnames-react/
+=======
+GHPages: https://olexiip.github.io/test-listofnames-react/
+
+Task: https://docs.google.com/document/d/1RB5ncD5QprYgJr9RH7W5FB9Vj9wmMv-gpZ82ZTg3YGw/edit#heading=h.th2mzrp6h3u1
+>>>>>>> Stashed changes
 
 U need Node.js and NPM.
 Clone project, then run:
