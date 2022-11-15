@@ -1,5 +1,5 @@
 const ListItem = (props) => {
-	//console.log(props);
+
 	return (
 		<div 
 		className="list-item" 

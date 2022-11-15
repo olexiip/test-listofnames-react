@@ -17,6 +17,52 @@ const StorageService = () => {
 		],
 	}
 
+	const getAllData = async () => {
+			const data = await JSON.parse(localStorage.getItem("nameList"));
+			if(data?.names) {
+				return data;
+			}
+			localStorage.setItem("nameList", JSON.stringify(example));
+			return example;
+	}
+
+	const sortData = (data) => {
+		data.names.sort((a,b)=>a.rank - b.rank);
+		return data;
+	}
+
+	const saveData = async (data) => {
+		writeRanks(data);
+		try {
+			await localStorage.setItem("nameList", JSON.stringify(data));
+		} catch (e) {
+			console.log(e)
+			return {"err":"sww"};
+		}
+		return {"res":"ok"};
+	}
+
+	const writeRanks = (data) => {
+		data.names.forEach((element, index) => {
+			element.rank = index;
+		});
+		return data;
+	}
+
+	const findItem = (data, id) => {
+		let target;
+		data.names.find(function(item, index){
+			if (item.id === id) {
+				target=index;
+				return true;
+			}
+			return false;
+		})
+		return target;
+	}
+
+	
+
 	const getData = async (pag) => {
 		const page = pag?.page;
 		const limit = pag?.limit;
@@ -42,48 +88,6 @@ const StorageService = () => {
 		return {"res":"err"};
 	}
 
-	const getAllData = async () => {
-			const data = await JSON.parse(localStorage.getItem("nameList"));
-			if(data?.names) {
-				return data;
-			}
-			localStorage.setItem("nameList", JSON.stringify(example));
-			return example;
-	}
-
-	const deleteItem = async (id) => {
-		console.log("deleteItem")
-		console.log(id)
-		const delItem = (data) => {
-			const target =  findItem(data, id);
-			if(target>-1){
-				data.names.splice(target,1);
-				saveData(data);
-			}
-		}
-		try { 
-			getAllData().then(delItem);
-		} catch (e) {
-			console.log(e);
-			return {"err":"sww"};
-		}
-		return {"res":"ok"};
-	}
-
-	const saveData = async (data) => {
-		data.names.forEach((element, index) => {
-			element.rank = index;
-		});
-		try {
-			await localStorage.setItem("nameList", JSON.stringify(data));
-		} catch (e) {
-			console.log(e)
-			return {"err":"sww"};
-		}
-		return {"res":"ok"};
-	}
-
-
 	const AddItem = async (item, rank = -1) => {
 		const insertItem = async (data)  => {
 			if ((rank <0) || ( +rank > data.names.length)) {
@@ -104,18 +108,6 @@ const StorageService = () => {
 		return {"res":"ok"};
 	}  
 
-	const findItem = (data, id) => {
-		let target;
-		data.names.find(function(item, index){
-			if (item.id === id) {
-				target=index;
-				return true;
-			}
-			return false;
-		})
-		return target;
-	}
-
 	const swapItems = async (id1, id2) => {
 
 		const swap = (data) => {
@@ -123,7 +115,7 @@ const StorageService = () => {
 			const item2 = findItem(data, id2);
 			data.names[item1].rank=item2;
 			data.names[item2].rank=item1;
-			data.names.sort((a,b)=>a.rank -b.rank);
+			sortData(data);
 			saveData(data);
 		}
 		try {
@@ -151,7 +143,7 @@ const StorageService = () => {
 					if (letschangeRank) {
 						const oldRank = data.names[itemIndex].rank;
 						data.names[itemIndex].rank=+rank + Math.sign(rank-oldRank)/10;
-						data.names.sort((a,b)=>a.rank - b.rank);
+						sortData(data);
 					}
 					saveData(data);
 				} else {
@@ -174,14 +166,24 @@ const StorageService = () => {
 		}
 	}
 
-
-
-
-
-
-
-
-
+	const deleteItem = async (id) => {
+		console.log("deleteItem")
+		console.log(id)
+		const delItem = (data) => {
+			const target =  findItem(data, id);
+			if(target>-1){
+				data.names.splice(target,1);
+				saveData(data);
+			}
+		}
+		try { 
+			getAllData().then(delItem);
+		} catch (e) {
+			console.log(e);
+			return {"err":"sww"};
+		}
+		return {"res":"ok"};
+	}
 
 	return {getData, swapItems, deleteItem, AddItem, editItem};
 }

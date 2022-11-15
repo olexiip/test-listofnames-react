@@ -77,6 +77,7 @@ const List = () => {
 		getData(1);
 		//updateModal({}); 
 	}
+	
 	const editHandler = (id, text, rank) => {
 		updateModal({
 			show:true,
@@ -84,21 +85,20 @@ const List = () => {
 			text:text,
 			rank: rank
 		})
-		//showEditModal(id, text);
 	}
 
 
 	const showEditModal = () => {
         return (
             <EditItem 
-            show={currentModal.show} 
-            id={currentModal.id} 
-            text={currentModal.text}
-			rank={currentModal.rank}
-            handleClose = {handleClose} 
-            handleSave={handleSave}
-        ></EditItem>  
-        )
+							show={currentModal.show} 
+							id={currentModal.id} 
+							text={currentModal.text}
+							rank={currentModal.rank}
+							handleClose = {handleClose} 
+							handleSave={handleSave}
+        		></EditItem>  
+        	)
     }
 
 	const handleClose = () => {
@@ -108,37 +108,36 @@ const List = () => {
 	return (
 		<div className="list">
 			<CreateItem addItem={addItemHandler}></CreateItem>
-		<div className="list-header">
-		<div className="item-rating-h">Rank</div>
-			<div className="item-name-h">Name</div>
+			<div className="list-header">
+				<div className="item-rating-h">Rank</div>
+				<div className="item-name-h">Name</div>
+			</div>
 
-		</div>
-		{
-						updatedList.names.map( (item)=>(
-							<ListItem 
-								 key={item.id} 
-								 onDragStart={onDragStart}
-								 onDragLeave={onDragLeave}
-								 onDragEnd={onDragEnd}
-								 onDragOver={onDragOver}
-								 onDrop={onDrop}
-								 deleteHandler={deleteHandler}
-								 editHandler={editHandler}
-								 {...item} 
-								 
-							></ListItem>
+			{
+							updatedList.names.map( (item)=>(
+								<ListItem 
+									key={item.id} 
+									onDragStart={onDragStart}
+									onDragLeave={onDragLeave}
+									onDragEnd={onDragEnd}
+									onDragOver={onDragOver}
+									onDrop={onDrop}
+									deleteHandler={deleteHandler}
+									editHandler={editHandler}
+									{...item} 
+									
+								></ListItem>
+								))
+			}
 
-				  		))
-		}
+			<Pages className="pages"
+							onChange={onChangePage}
+							active={updatedList.page}
+							pages={getPagesCount()}
+							maxButtons={3}
+					/>  
 
-		<Pages className="pages"
-            onChange={onChangePage}
-            active={updatedList.page}
-            pages={getPagesCount()}
-            maxButtons={3}
-        />  
-
-		{currentModal?.show?showEditModal():""}
+			{currentModal?.show?showEditModal():""}
 
 		</div>
 
