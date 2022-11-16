@@ -4,6 +4,8 @@ Demonstration here: https://olexiip.github.io/test-listofnames-react/
 
 GHPages: https://olexiip.github.io/test-listofnames-react/
 
+video:  https://www.youtube.com/watch?v=9h5zCpWFeoU
+
 Task: https://docs.google.com/document/d/1RB5ncD5QprYgJr9RH7W5FB9Vj9wmMv-gpZ82ZTg3YGw/edit#heading=h.th2mzrp6h3u1
 
 U need Node.js and NPM.
